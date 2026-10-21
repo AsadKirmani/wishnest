@@ -203,12 +203,12 @@
 }
 
 .dashboard-collection-info > span {
-  color: #84899d;
+  color: #5f687c;
   font-size: 10px;
 }
 
 .dashboard-chevron {
-  color: #a1a6b8;
+  color: #5f687c;
   font-size: 20px;
 }
 
@@ -237,7 +237,7 @@
 .dashboard-empty p {
   max-width: 260px;
   margin-top: 6px;
-  color: #81869a;
+  color: #5f687c;
   font-size: 11px;
   line-height: 1.6;
 }
@@ -292,7 +292,7 @@
 }
 
 .dashboard-image-placeholder {
-  color: #a4aac1;
+  color: #5f687c;
   font-size: 28px;
 }
 
@@ -339,7 +339,7 @@
 
 .dashboard-product-meta span {
   flex-shrink: 0;
-  color: #969bad;
+  color: #5f687c;
   font-size: 10px;
 }
 
@@ -378,7 +378,7 @@
   align-items: center;
   gap: 10px;
   padding: 60px 0;
-  color: #81869a;
+  color: #5f687c;
   font-size: 12px;
 }
 

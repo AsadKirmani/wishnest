@@ -10,12 +10,14 @@ interface ProductCollectionSelectorProps {
   product: ProductDraft;
   onBack: () => void;
   onSaved: () => void;
+  initialCollectionId?: string | null;
 }
 
 export default function ProductCollectionSelector({
   product,
   onBack,
   onSaved,
+  initialCollectionId = null,
 }: ProductCollectionSelectorProps) {
   const [collections, setCollections] = useState<UserCollection[]>([]);
   const [collectionId, setCollectionId] = useState("");
@@ -36,7 +38,14 @@ export default function ProductCollectionSelector({
         if (!active) return;
 
         setCollections(result);
-        setCollectionId((current) => current || result[0]?.id || "");
+        const preferredCollectionExists = result.some(
+          (collection) => collection.id === initialCollectionId,
+        );
+        setCollectionId(
+          preferredCollectionExists
+            ? initialCollectionId!
+            : result[0]?.id || "",
+        );
 
         if (result.length === 0) {
           setError(
@@ -61,7 +70,7 @@ export default function ProductCollectionSelector({
     return () => {
       active = false;
     };
-  }, []);
+  }, [initialCollectionId]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();

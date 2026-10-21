@@ -1,24 +1,34 @@
 
+import {
+  createCollectionRepository,
+} from "@wishnest/shared";
+import type {
+  CreateCollectionInput,
+} from "@wishnest/shared";
 import { supabase } from "../../../lib/supabase";
 
-export interface UserCollection {
-  id: string;
-  name: string;
-  description: string | null;
-  visibility: "private" | "public";
-}
+const repository = createCollectionRepository(supabase);
 
 export const collectionRepository = {
-  async getAll(): Promise<UserCollection[]> {
-    const { data, error } = await supabase
-      .from("collections")
-      .select("id, name, description, visibility")
-      .order("created_at", { ascending: false });
+  getById: repository.getById,
 
-    if (error) {
-      throw new Error(error.message);
-    }
+  create: (input: CreateCollectionInput) =>
+    repository.create(input),
 
-    return (data ?? []) as UserCollection[];
+  getAll: async () => {
+    const collections = await repository.getAll();
+
+    return collections.map(
+      ({ id, name, description, visibility }) => ({
+        id,
+        name,
+        description,
+        visibility,
+      }),
+    );
   },
 };
+
+export type UserCollection = Awaited<
+  ReturnType<typeof collectionRepository.getAll>
+>[number];

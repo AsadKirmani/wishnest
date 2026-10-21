@@ -10,9 +10,13 @@ import CollectionForm from "./CollectionForm";
 import CollectionList from "./CollectionList";
 import DeleteCollectionDialog from "./DeleteCollectionDialog";
 import CollectionDetailPage from "./CollectionDetailPage";
+import { useDashboardOverview } from "../../dashboard/hooks/useDashboardOverview";
+import RecentProductsPreview from "../../dashboard/components/RecentProductsPreview";
 import "./CollectionsPage.css";
 
 export default function CollectionsPage() {
+  const dashboardOverview = useDashboardOverview();
+
   const {
     collections,
     loading,
@@ -57,7 +61,10 @@ export default function CollectionsPage() {
   return (
     <CollectionDetailPage
       collection={currentCollection}
-      onBack={() => setSelectedCollection(null)}
+      onBack={() => {
+        setSelectedCollection(null);
+        void dashboardOverview.refresh();
+      }}
     />
   );
 }
@@ -142,6 +149,17 @@ export default function CollectionsPage() {
           </>
         )}
       </section>
+
+      <RecentProductsPreview
+        products={dashboardOverview.recentProducts}
+        loading={dashboardOverview.loading}
+        error={dashboardOverview.error}
+        onRetry={() => void dashboardOverview.refresh()}
+        onOpenCollection={(collectionId) => {
+          const collection = collections.find((item) => item.id === collectionId);
+          if (collection) setSelectedCollection(collection);
+        }}
+      />
 
       {deleting && (
         <DeleteCollectionDialog

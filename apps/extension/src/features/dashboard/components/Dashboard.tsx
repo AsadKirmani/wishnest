@@ -1,10 +1,10 @@
-
 import { useDashboard } from "../hooks/useDashboard";
 import "./Dashboard.css";
 
 type DashboardProps = {
   email: string;
   onCaptureProduct: () => void;
+  onCreateCollection: () => void;
   captureBusy: boolean;
   onLogout: () => void;
   onOpenCollection: (collectionId: string) => void;
@@ -37,17 +37,13 @@ function formatDate(date: string): string {
 export default function Dashboard({
   email,
   onCaptureProduct,
+  onCreateCollection,
   captureBusy,
   onLogout,
   onOpenCollection,
 }: DashboardProps) {
-  const {
-    collections,
-    recentProducts,
-    loading,
-    error,
-    refresh,
-  } = useDashboard();
+  const { collections, recentProducts, loading, error, refresh } =
+    useDashboard();
 
   return (
     <main className="dashboard">
@@ -111,19 +107,28 @@ export default function Dashboard({
                 <h2>My collections</h2>
                 <p>Organize your saved finds.</p>
               </div>
-              <span className="dashboard-count">
-                {collections.length}
-              </span>
+              <span className="dashboard-count">{collections.length}</span>
+              <button
+                className="dashboard-capture"
+                type="button"
+                onClick={onCreateCollection}
+              >
+                + Create collection
+              </button>
             </div>
 
             {collections.length === 0 ? (
               <div className="dashboard-empty">
                 <div className="dashboard-empty-icon">♡</div>
                 <h3>Your collections will live here</h3>
-                <p>
-                  Create your first collection on WishNest web, then
-                  it will appear here automatically.
-                </p>
+                <p>Create a collection to organize your favorite finds.</p>
+                <button
+                  className="dashboard-capture"
+                  type="button"
+                  onClick={onCreateCollection}
+                >
+                  + Create collection
+                </button>
               </div>
             ) : (
               <div className="dashboard-collections">
@@ -134,16 +139,12 @@ export default function Dashboard({
                     key={collection.id}
                     onClick={() => onOpenCollection(collection.id)}
                   >
-                    <span className="dashboard-collection-icon">
-                      ♡
-                    </span>
+                    <span className="dashboard-collection-icon">♡</span>
                     <span className="dashboard-collection-info">
                       <strong>{collection.name}</strong>
                       <span>
                         {collection.productCount}{" "}
-                        {collection.productCount === 1
-                          ? "product"
-                          : "products"}
+                        {collection.productCount === 1 ? "product" : "products"}
                       </span>
                     </span>
                     <span className="dashboard-chevron">›</span>
@@ -166,8 +167,8 @@ export default function Dashboard({
                 <div className="dashboard-empty-icon">＋</div>
                 <h3>Nothing saved just yet</h3>
                 <p>
-                  Find something you like on a shopping site and
-                  capture it to see it here.
+                  Find something you like on a shopping site and capture it to
+                  see it here.
                 </p>
                 <button
                   className="dashboard-text-button"
@@ -198,15 +199,9 @@ export default function Dashboard({
                       aria-label={`Open ${product.title}`}
                     >
                       {product.image_url ? (
-                        <img
-                          src={product.image_url}
-                          alt=""
-                          loading="lazy"
-                        />
+                        <img src={product.image_url} alt="" loading="lazy" />
                       ) : (
-                        <span className="dashboard-image-placeholder">
-                          ♡
-                        </span>
+                        <span className="dashboard-image-placeholder">♡</span>
                       )}
                     </button>
 
@@ -227,9 +222,7 @@ export default function Dashboard({
                       <button
                         className="dashboard-product-collection"
                         type="button"
-                        onClick={() =>
-                          onOpenCollection(product.collectionId)
-                        }
+                        onClick={() => onOpenCollection(product.collectionId)}
                       >
                         {product.collectionName}
                       </button>
