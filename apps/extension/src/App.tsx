@@ -11,7 +11,6 @@ import CollectionForm from "./features/collections/components/CollectionForm";
 import { collectionRepository } from "./features/collections/services/collectionRepository";
 import type { UserCollection } from "./features/collections/services/collectionRepository";
 import type { CreateCollectionInput } from "@wishnest/shared";
-import "./App.css";
 
 export default function App() {
   const auth = useAuth();
@@ -50,22 +49,6 @@ export default function App() {
     }
   }
 
-  if (auth.loading) {
-    return <main className="app-loading">Loading WishNest...</main>;
-  }
-
-  if (!auth.session) {
-    return (
-      <AuthForm
-        busy={auth.busy}
-        error={auth.error}
-        message={auth.message}
-        onSignIn={auth.signIn}
-        onSignUp={auth.signUp}
-        onClearFeedback={auth.clearFeedback}
-      />
-    );
-  }
   async function handleOpenCollectionForm() {
     setCollectionError(null);
     setCollectionLoading(true);
@@ -104,6 +87,30 @@ export default function App() {
     }
   }
 
+  if (auth.loading) {
+    return (
+      <main className="grid min-h-screen place-items-center text-sm text-[#657089]">
+        <div className="flex items-center gap-3" role="status">
+          <span className="h-5 w-5 animate-spin rounded-full border-2 border-[#d9deea] border-t-[#243b80] motion-reduce:animate-none" />
+          Loading WishNest...
+        </div>
+      </main>
+    );
+  }
+
+  if (!auth.session) {
+    return (
+      <AuthForm
+        busy={auth.busy}
+        error={auth.error}
+        message={auth.message}
+        onSignIn={auth.signIn}
+        onSignUp={auth.signUp}
+        onClearFeedback={auth.clearFeedback}
+      />
+    );
+  }
+
   if (productDraft && selectingCollection) {
     return (
       <ProductCollectionSelector
@@ -138,6 +145,7 @@ export default function App() {
       />
     );
   }
+
   if (showCollectionForm) {
     return (
       <>
@@ -151,10 +159,20 @@ export default function App() {
           }}
         />
 
-        {collectionLoading && <p role="status">Loading collections...</p>}
+        {collectionLoading && (
+          <p
+            className="m-0 px-[18px] pb-3.5 text-xs text-[#657089]"
+            role="status"
+          >
+            Loading collections...
+          </p>
+        )}
 
         {collectionError && (
-          <div className="app-feedback-error" role="alert">
+          <div
+            className="mx-[18px] mb-3.5 rounded-[10px] border border-[#f1caca] bg-[#fff4f4] px-3 py-2.5 text-xs text-[#a52b35] [overflow-wrap:anywhere]"
+            role="alert"
+          >
             {collectionError}
           </div>
         )}
@@ -188,13 +206,19 @@ export default function App() {
       />
 
       {captureError && (
-        <div className="app-feedback-error" role="alert">
+        <div
+          className="mx-[18px] mb-3.5 rounded-[10px] border border-[#f1caca] bg-[#fff4f4] px-3 py-2.5 text-xs text-[#a52b35] [overflow-wrap:anywhere]"
+          role="alert"
+        >
           {captureError}
         </div>
       )}
 
       {saveMessage && (
-        <div className="app-feedback-success" role="status">
+        <div
+          className="mx-[18px] mb-3.5 rounded-[10px] border border-[#c9e8d5] bg-[#effaf3] px-3 py-2.5 text-xs text-[#247544] [overflow-wrap:anywhere]"
+          role="status"
+        >
           {saveMessage}
         </div>
       )}

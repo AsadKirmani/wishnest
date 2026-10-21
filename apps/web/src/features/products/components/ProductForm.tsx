@@ -1,4 +1,3 @@
-
 import { useState, type FormEvent } from "react";
 import type { Collection } from "../../collections/types";
 import type { SaveProductInput } from "../types";
@@ -104,12 +103,21 @@ export default function ProductForm({
     }
   }
 
+  const fieldClass =
+    "box-border w-full min-w-0 rounded-[9px] border border-[#d9deea] bg-white px-3 py-[11px] text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#5965d8] focus:outline-2 focus:outline-[#c8ccff] disabled:cursor-not-allowed disabled:bg-slate-50 disabled:opacity-70";
+
+  const labelClass = "text-sm font-semibold text-[#30394c]";
+
   return (
-    <form className="product-form" onSubmit={handleSubmit}>
-      <div className="form-field">
-        <label htmlFor="product-collection">Save to collection</label>
+    <form className="grid gap-[18px]" onSubmit={handleSubmit}>
+      <div className="grid gap-2">
+        <label className={labelClass} htmlFor="product-collection">
+          Save to collection
+        </label>
+
         <select
           id="product-collection"
+          className={fieldClass}
           value={collectionId}
           onChange={(event) => setCollectionId(event.target.value)}
           required
@@ -123,10 +131,14 @@ export default function ProductForm({
         </select>
       </div>
 
-      <div className="form-field">
-        <label htmlFor="product-url">Product URL</label>
+      <div className="grid gap-2">
+        <label className={labelClass} htmlFor="product-url">
+          Product URL
+        </label>
+
         <input
           id="product-url"
+          className={fieldClass}
           type="url"
           value={url}
           onChange={(event) => setUrl(event.target.value)}
@@ -136,10 +148,14 @@ export default function ProductForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="product-title">Product title</label>
+      <div className="grid gap-2">
+        <label className={labelClass} htmlFor="product-title">
+          Product title
+        </label>
+
         <input
           id="product-title"
+          className={fieldClass}
           value={title}
           onChange={(event) => setTitle(event.target.value)}
           placeholder="Product name"
@@ -149,10 +165,14 @@ export default function ProductForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="product-image">Image URL (optional)</label>
+      <div className="grid gap-2">
+        <label className={labelClass} htmlFor="product-image">
+          Image URL <span className="font-normal text-[#647084]">(optional)</span>
+        </label>
+
         <input
           id="product-image"
+          className={fieldClass}
           type="url"
           value={imageUrl}
           onChange={(event) => setImageUrl(event.target.value)}
@@ -161,11 +181,15 @@ export default function ProductForm({
         />
       </div>
 
-      <div className="product-form-row">
-        <div className="form-field">
-          <label htmlFor="product-price">Price (optional)</label>
+      <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-3 max-[480px]:grid-cols-1">
+        <div className="grid content-start gap-2">
+          <label className={labelClass} htmlFor="product-price">
+            Price <span className="font-normal text-[#647084]">(optional)</span>
+          </label>
+
           <input
             id="product-price"
+            className={fieldClass}
             type="number"
             min="0"
             step="any"
@@ -176,10 +200,14 @@ export default function ProductForm({
           />
         </div>
 
-        <div className="form-field">
-          <label htmlFor="product-currency">Currency</label>
+        <div className="grid content-start gap-2">
+          <label className={labelClass} htmlFor="product-currency">
+            Currency
+          </label>
+
           <select
             id="product-currency"
+            className={fieldClass}
             value={currency}
             onChange={(event) => setCurrency(event.target.value)}
             disabled={busy || !price.trim()}
@@ -192,10 +220,14 @@ export default function ProductForm({
         </div>
       </div>
 
-      <div className="form-field">
-        <label htmlFor="product-note">Note (optional)</label>
+      <div className="grid gap-2">
+        <label className={labelClass} htmlFor="product-note">
+          Note <span className="font-normal text-[#647084]">(optional)</span>
+        </label>
+
         <textarea
           id="product-note"
+          className={`${fieldClass} resize-y`}
           rows={2}
           maxLength={1000}
           value={note}
@@ -205,16 +237,27 @@ export default function ProductForm({
         />
       </div>
 
-      {formError && <p className="form-error">{formError}</p>}
+      {formError && (
+        <p
+          className="m-0 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-[#b42332]"
+          role="alert"
+        >
+          {formError}
+        </p>
+      )}
 
-      <div className="form-actions">
-        <button type="submit" disabled={busy || collections.length === 0}>
+      <div className="flex flex-wrap gap-2.5">
+        <button
+          type="submit"
+          className="rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white transition-colors hover:bg-[#4854c5] disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={busy || collections.length === 0}
+        >
           {busy ? "Saving..." : "Save product"}
         </button>
 
         <button
           type="button"
-          className="button-secondary"
+          className="rounded-[9px] bg-[#eef0f6] px-4 py-[11px] font-semibold text-[#30394c] transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
           onClick={onCancel}
           disabled={busy}
         >

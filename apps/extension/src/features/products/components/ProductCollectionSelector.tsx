@@ -1,10 +1,8 @@
-
 import { useEffect, useState, type FormEvent } from "react";
 import { collectionRepository } from "../../collections/services/collectionRepository";
 import { productRepository } from "../services/productRepository";
 import type { ProductDraft } from "../types";
 import type { UserCollection } from "../../collections/services/collectionRepository";
-import "./ProductCollectionSelector.css";
 
 interface ProductCollectionSelectorProps {
   product: ProductDraft;
@@ -38,9 +36,11 @@ export default function ProductCollectionSelector({
         if (!active) return;
 
         setCollections(result);
+
         const preferredCollectionExists = result.some(
           (collection) => collection.id === initialCollectionId,
         );
+
         setCollectionId(
           preferredCollectionExists
             ? initialCollectionId!
@@ -99,27 +99,50 @@ export default function ProductCollectionSelector({
     }
   }
 
+  const buttonClasses =
+    "cursor-pointer rounded-lg border-0 bg-[#5965d8] px-3 py-[11px] font-semibold text-white transition-colors hover:bg-[#4955c5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5965d8] disabled:cursor-not-allowed disabled:opacity-60";
+
   return (
-    <main className="collection-selector">
+    <main className="grid gap-3.5 p-5 text-[#172033]">
       <button
         type="button"
-        className="selector-back"
+        className="justify-self-start cursor-pointer border-0 bg-transparent px-0 py-1 text-left text-[13px] font-medium text-[#4e56ba] hover:text-[#35409f] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5965d8] disabled:cursor-not-allowed disabled:opacity-60"
         onClick={onBack}
         disabled={busy}
       >
         ← Back to product
       </button>
 
-      <h1>Save to WishNest</h1>
-      <p className="selector-product-title">{product.title}</p>
+      <h1 className="mt-1 mb-0 text-xl font-semibold">
+        Save to WishNest
+      </h1>
+
+      <p className="m-0 [overflow-wrap:anywhere] text-[13px] leading-[1.5] text-[#647084]">
+        {product.title}
+      </p>
 
       {loading ? (
-        <p>Loading your collections...</p>
+        <div
+          className="flex items-center gap-2 py-3 text-[13px] text-[#647084]"
+          role="status"
+        >
+          <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#d9deea] border-t-[#5965d8] motion-reduce:animate-none" />
+          Loading your collections...
+        </div>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="target-collection">Choose collection</label>
+        <form
+          className="grid gap-3"
+          onSubmit={handleSubmit}
+        >
+          <label
+            className="text-[13px] font-semibold text-[#334155]"
+            htmlFor="target-collection"
+          >
+            Choose collection
+          </label>
 
           <select
+            className="box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-white p-2.5 text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
             id="target-collection"
             value={collectionId}
             onChange={(event) => setCollectionId(event.target.value)}
@@ -136,9 +159,17 @@ export default function ProductCollectionSelector({
             ))}
           </select>
 
-          {error && <p className="selector-error" role="alert">{error}</p>}
+          {error && (
+            <p
+              className="m-0 [overflow-wrap:anywhere] text-xs leading-[1.5] text-[#b42332]"
+              role="alert"
+            >
+              {error}
+            </p>
+          )}
 
           <button
+            className={buttonClasses}
             type="submit"
             disabled={busy || !collectionId || collections.length === 0}
           >

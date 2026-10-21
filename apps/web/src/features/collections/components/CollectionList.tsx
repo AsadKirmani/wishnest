@@ -1,4 +1,3 @@
-
 import type { Collection } from "../types";
 import CollectionCard from "./CollectionCard";
 
@@ -19,15 +18,20 @@ export default function CollectionList({
 }: CollectionListProps) {
   if (collections.length === 0) {
     return (
-      <div className="collections-empty">
-        <h3>No collections yet</h3>
-        <p>Create your first collection to start organizing products.</p>
+      <div className="rounded-2xl border border-dashed border-[#d9deea] px-5 py-[42px] text-center">
+        <h3 className="mb-2 text-lg font-semibold">
+          No collections yet
+        </h3>
+
+        <p className="m-0 text-[#647084]">
+          Create your first collection to start organizing products.
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="collection-list">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,290px),1fr))] gap-4">
       {collections.map((collection) => (
         <CollectionCard
           key={collection.id}

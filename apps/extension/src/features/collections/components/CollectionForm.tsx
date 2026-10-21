@@ -1,8 +1,6 @@
-
 import { useState, type FormEvent } from "react";
 import type { CreateCollectionInput } from "@wishnest/shared";
 import type { UserCollection } from "../services/collectionRepository";
-import "./CollectionForm.css";
 
 interface CollectionFormProps {
   existingCollections: UserCollection[];
@@ -65,11 +63,27 @@ export default function CollectionForm({
     }
   }
 
+  const inputClasses =
+    "box-border w-full rounded-lg border border-[#cbd5e1] bg-white px-3 py-2.5 text-[13px] text-[#172033] placeholder:text-slate-400 focus:border-[#4f46e5] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
+
+  const actionButton =
+    "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-lg border border-[#4f46e5] bg-[#4f46e5] px-3.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#4338ca] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5] disabled:cursor-not-allowed disabled:opacity-60";
+
   return (
-    <form className="collection-form" onSubmit={handleSubmit}>
-      <div className="form-field">
-        <label htmlFor="collection-name">Collection name</label>
+    <form
+      className="flex flex-col gap-4 bg-white p-5 text-[#172033]"
+      onSubmit={handleSubmit}
+    >
+      <div className="flex flex-col gap-[7px]">
+        <label
+          className="text-[13px] font-semibold text-[#334155]"
+          htmlFor="collection-name"
+        >
+          Collection name
+        </label>
+
         <input
+          className={inputClasses}
           id="collection-name"
           value={name}
           onChange={(event) => setName(event.target.value)}
@@ -80,11 +94,17 @@ export default function CollectionForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="collection-description">
-          Description <span>(optional)</span>
+      <div className="flex flex-col gap-[7px]">
+        <label
+          className="text-[13px] font-semibold text-[#334155]"
+          htmlFor="collection-description"
+        >
+          Description{" "}
+          <span className="font-normal text-[#64748b]">(optional)</span>
         </label>
+
         <textarea
+          className={`${inputClasses} resize-y`}
           id="collection-description"
           value={description}
           onChange={(event) => setDescription(event.target.value)}
@@ -95,9 +115,16 @@ export default function CollectionForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="collection-visibility">Visibility</label>
+      <div className="flex flex-col gap-[7px]">
+        <label
+          className="text-[13px] font-semibold text-[#334155]"
+          htmlFor="collection-visibility"
+        >
+          Visibility
+        </label>
+
         <select
+          className={inputClasses}
           id="collection-visibility"
           value={visibility}
           onChange={(event) =>
@@ -110,22 +137,34 @@ export default function CollectionForm({
           <option value="private">Private — only you</option>
           <option value="public">Public — visibility setting only</option>
         </select>
-        <p className="field-hint">
+
+        <p className="m-0 text-[11px] leading-[1.5] text-[#64748b]">
           Public sharing links will be implemented separately.
         </p>
       </div>
 
-      {formError && <p className="form-error">{formError}</p>}
+      {formError && (
+        <p
+          className="m-0 text-xs leading-[1.5] text-[#b91c1c]"
+          role="alert"
+        >
+          {formError}
+        </p>
+      )}
 
-      <div className="form-actions">
-        <button type="submit" disabled={busy}>
+      <div className="flex flex-wrap gap-2.5">
+        <button
+          className={actionButton}
+          type="submit"
+          disabled={busy}
+        >
           {busy ? "Saving..." : "Create collection"}
         </button>
 
         {onCancel && (
           <button
+            className="inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-lg border border-[#cbd5e1] bg-white px-3.5 text-[13px] font-semibold text-[#334155] transition-colors hover:bg-[#f1f5f9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5] disabled:cursor-not-allowed disabled:opacity-60"
             type="button"
-            className="button-secondary"
             onClick={onCancel}
             disabled={busy}
           >

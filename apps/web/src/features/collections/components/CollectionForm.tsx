@@ -47,6 +47,7 @@ export default function CollectionForm({
       setFormError("Collection name is required.");
       return;
     }
+
     const normalizedName = trimmedName.toLowerCase();
 
     const duplicateExists = existingCollections.some(
@@ -82,12 +83,19 @@ export default function CollectionForm({
     }
   }
 
+  const fieldClass =
+    "box-border w-full rounded-[9px] border border-[#d9deea] bg-white px-3 py-[11px] font-inherit text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c8ccff] disabled:cursor-not-allowed disabled:opacity-60";
+
   return (
-    <form className="collection-form" onSubmit={handleSubmit}>
-      <div className="form-field">
-        <label htmlFor="collection-name">Collection name</label>
+    <form className="grid gap-[18px]" onSubmit={handleSubmit}>
+      <div className="grid gap-2">
+        <label htmlFor="collection-name" className="text-sm font-semibold">
+          Collection name
+        </label>
+
         <input
           id="collection-name"
+          className={fieldClass}
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder="e.g. Wishlist, Gaming setup"
@@ -97,12 +105,20 @@ export default function CollectionForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="collection-description">
-          Description <span>(optional)</span>
+      <div className="grid gap-2">
+        <label
+          htmlFor="collection-description"
+          className="text-sm font-semibold"
+        >
+          Description{" "}
+          <span className="text-[13px] font-normal text-[#626b7f]">
+            (optional)
+          </span>
         </label>
+
         <textarea
           id="collection-description"
+          className={fieldClass}
           value={description}
           onChange={(event) => setDescription(event.target.value)}
           placeholder="What are you collecting?"
@@ -112,10 +128,17 @@ export default function CollectionForm({
         />
       </div>
 
-      <div className="form-field">
-        <label htmlFor="collection-visibility">Visibility</label>
+      <div className="grid gap-2">
+        <label
+          htmlFor="collection-visibility"
+          className="text-sm font-semibold"
+        >
+          Visibility
+        </label>
+
         <select
           id="collection-visibility"
+          className={fieldClass}
           value={visibility}
           onChange={(event) =>
             setVisibility(event.target.value as CollectionVisibility)
@@ -125,15 +148,24 @@ export default function CollectionForm({
           <option value="private">Private — only you</option>
           <option value="public">Public — visibility setting only</option>
         </select>
-        <p className="field-hint">
+
+        <p className="m-0 text-[13px] font-normal text-[#626b7f]">
           Public sharing links will be implemented separately.
         </p>
       </div>
 
-      {formError && <p className="form-error">{formError}</p>}
+      {formError && (
+        <p className="m-0 text-sm text-[#b42332]" role="alert">
+          {formError}
+        </p>
+      )}
 
-      <div className="form-actions">
-        <button type="submit" disabled={busy}>
+      <div className="flex flex-wrap gap-2.5">
+        <button
+          type="submit"
+          className="rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={busy}
+        >
           {busy
             ? "Saving..."
             : isEditing
@@ -144,7 +176,7 @@ export default function CollectionForm({
         {onCancel && (
           <button
             type="button"
-            className="button-secondary"
+            className="rounded-[9px] bg-[#eef0f6] px-4 py-[11px] font-semibold text-[#30394c] disabled:cursor-not-allowed disabled:opacity-60"
             onClick={onCancel}
             disabled={busy}
           >

@@ -1,7 +1,5 @@
-
 import { useEffect, useState, type FormEvent } from "react";
 import type { ProductDraft } from "../types";
-import "./ProductCaptureForm.css";
 
 interface ProductCaptureFormProps {
   initialProduct: ProductDraft;
@@ -105,13 +103,24 @@ export default function ProductCaptureForm({
     }
   }
 
+  const inputClasses =
+    "box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-white px-2.5 py-[9px] text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
+
+  const actionButton =
+    "flex-1 cursor-pointer rounded-lg border-0 bg-[#5965d8] p-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#4955c5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5965d8] disabled:cursor-not-allowed disabled:opacity-60";
+
   return (
-    <form className="product-capture-form" onSubmit={handleSubmit}>
-      <h2>Review product</h2>
+    <form
+      className="grid gap-2.5 p-4"
+      onSubmit={handleSubmit}
+    >
+      <h2 className="mb-1.5 mt-0 text-lg font-semibold text-[#172033]">
+        Review product
+      </h2>
 
       {imageUrl && (
         <img
-          className="capture-image-preview"
+          className="h-[130px] w-full rounded-[10px] bg-[#f1f3f8] object-contain"
           src={imageUrl}
           alt="Product preview"
           onError={(event) => {
@@ -120,8 +129,14 @@ export default function ProductCaptureForm({
         />
       )}
 
-      <label htmlFor="capture-title">Product title</label>
+      <label
+        className="text-xs font-semibold text-[#334155]"
+        htmlFor="capture-title"
+      >
+        Product title
+      </label>
       <input
+        className={inputClasses}
         id="capture-title"
         value={title}
         onChange={(event) => setTitle(event.target.value)}
@@ -130,8 +145,14 @@ export default function ProductCaptureForm({
         disabled={busy}
       />
 
-      <label htmlFor="capture-url">Product URL</label>
+      <label
+        className="text-xs font-semibold text-[#334155]"
+        htmlFor="capture-url"
+      >
+        Product URL
+      </label>
       <input
+        className={inputClasses}
         id="capture-url"
         type="url"
         value={url}
@@ -140,8 +161,14 @@ export default function ProductCaptureForm({
         disabled={busy}
       />
 
-      <label htmlFor="capture-image">Image URL</label>
+      <label
+        className="text-xs font-semibold text-[#334155]"
+        htmlFor="capture-image"
+      >
+        Image URL
+      </label>
       <input
+        className={inputClasses}
         id="capture-image"
         type="url"
         value={imageUrl}
@@ -149,10 +176,16 @@ export default function ProductCaptureForm({
         disabled={busy}
       />
 
-      <div className="capture-price-row">
-        <div>
-          <label htmlFor="capture-price">Price</label>
+      <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid min-w-0 gap-2.5">
+          <label
+            className="text-xs font-semibold text-[#334155]"
+            htmlFor="capture-price"
+          >
+            Price
+          </label>
           <input
+            className={inputClasses}
             id="capture-price"
             type="number"
             min="0"
@@ -163,9 +196,15 @@ export default function ProductCaptureForm({
           />
         </div>
 
-        <div>
-          <label htmlFor="capture-currency">Currency</label>
+        <div className="grid min-w-0 gap-2.5">
+          <label
+            className="text-xs font-semibold text-[#334155]"
+            htmlFor="capture-currency"
+          >
+            Currency
+          </label>
           <select
+            className={inputClasses}
             id="capture-currency"
             value={currency}
             onChange={(event) => setCurrency(event.target.value)}
@@ -179,16 +218,27 @@ export default function ProductCaptureForm({
         </div>
       </div>
 
-      {error && <p className="capture-error" role="alert">{error}</p>}
+      {error && (
+        <p
+          className="m-0 [overflow-wrap:anywhere] text-xs text-[#b42332]"
+          role="alert"
+        >
+          {error}
+        </p>
+      )}
 
-      <div className="capture-actions">
-        <button type="submit" disabled={busy}>
+      <div className="mt-2 flex gap-2">
+        <button
+          className={actionButton}
+          type="submit"
+          disabled={busy}
+        >
           {busy ? "Processing..." : "Continue"}
         </button>
 
         <button
+          className={`${actionButton} border border-[#d9deea] bg-white text-[#30394c] hover:bg-[#f1f3f8]`}
           type="button"
-          className="capture-secondary"
           onClick={onCancel}
           disabled={busy}
         >
