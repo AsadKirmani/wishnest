@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "WishNest",
+  "version": "0.1.0",
+  "description": "Save, organize and share products from across the web.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://utzfcctfeoxfyoajzuhg.supabase.co"
+  ],
+  "action": {
+    "default_title": "Save to WishNest",
+    "default_popup": "index.html"
+  }
+}
