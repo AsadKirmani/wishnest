@@ -1,4 +1,4 @@
-
+import { X } from "lucide-react";
 import {
   createContext,
   useCallback,
@@ -84,7 +84,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
             role="dialog"
             aria-modal="true"
             aria-label={modal.options.title ?? "Dialog"}
-            className={`relative my-auto max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl max-[480px]:p-4 ${
+            className={`relative my-auto max-h-[calc(100dvh-2rem)] w-full overflow-y-auto rounded-2xl bg-surface p-6 shadow-2xl max-[480px]:p-4 ${
               modal.options.maxWidth ?? "max-w-[640px]"
             }`}
           >
@@ -94,7 +94,7 @@ export function ModalProvider({ children }: { children: ReactNode }) {
               onClick={closeModal}
               className="absolute right-4 top-4 flex size-9 items-center justify-center rounded-full text-xl text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
             >
-              ×
+              <X className="size-6" aria-hidden="true" />
             </button>
 
             {modal.content}

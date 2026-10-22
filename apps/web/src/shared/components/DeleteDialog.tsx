@@ -1,3 +1,4 @@
+import { Trash } from "lucide-react";
 
 interface DeleteDialogProps {
   title: string;
@@ -20,27 +21,14 @@ export default function DeleteDialog({
 }: DeleteDialogProps) {
   return (
     <section
-      className="text-[#172033]"
+      className="text-content"
       role="alertdialog"
       aria-modal="true"
       aria-labelledby="delete-dialog-title"
       aria-describedby="delete-dialog-description"
     >
-      <div className="mb-6 flex size-12 items-center justify-center rounded-full bg-red-50 text-red-600">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          className="size-6"
-          aria-hidden="true"
-        >
-          <path
-            d="M3 6h18M8 6V4h8v2m-11 0 1 14h12l1-14M10 10v6m4-6v6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+      <div className="mb-6 flex size-12 items-center justify-center rounded-full bg-secondary text-primary">
+        <Trash className="size-6" aria-hidden="true" />
       </div>
 
       <h2
@@ -52,11 +40,11 @@ export default function DeleteDialog({
 
       <p
         id="delete-dialog-description"
-        className="mb-6 leading-[1.6] text-[#647084]"
+        className="mb-6 leading-[1.6] text-content-muted"
       >
         {description}{" "}
         {itemName && (
-          <strong className="break-words font-semibold text-[#172033]">
+          <strong className="break-words font-semibold text-content">
             {itemName}
           </strong>
         )}
@@ -65,7 +53,7 @@ export default function DeleteDialog({
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <button
           type="button"
-          className="rounded-[9px] border border-[#e3e7ef] bg-white px-4 py-[11px] font-semibold text-[#30394c] transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-[9px] border border-border bg-surface px-4 py-[11px] font-semibold text-content transition hover:bg-secondary disabled:cursor-not-allowed disabled:opacity-60"
           disabled={busy}
           onClick={onCancel}
         >
@@ -74,7 +62,7 @@ export default function DeleteDialog({
 
         <button
           type="button"
-          className="rounded-[9px] bg-red-600 px-4 py-[11px] font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-[9px] bg-primary px-4 py-[11px] font-semibold text-on-primary transition hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
           disabled={busy}
           onClick={() => void onConfirm()}
         >

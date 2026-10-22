@@ -182,7 +182,7 @@ export default function CollectionDetail({
           <p>Loading your products...</p>
         </div>
       ) : error ? null : products.length === 0 ? (
-        <section className="flex flex-col items-center rounded-[15px] border border-dashed border-[#dce0ed] bg-white px-[18px] py-8 text-center">
+        <section className="flex flex-col items-center rounded-[15px] border border-dashed border-[#dce0ed] bg-surface px-[18px] py-8 text-center">
           <div className="mb-3.5 grid h-12 w-12 place-items-center rounded-[15px] bg-[#eef0ff] text-[27px] text-[#5267ce]">
             ＋
           </div>
@@ -205,11 +205,11 @@ export default function CollectionDetail({
         <section className="flex flex-col gap-2.5">
           {products.map((product) => (
             <article
-              className="flex min-w-0 items-center gap-[11px] rounded-[13px] border border-[#e8eaf2] bg-white p-2.5"
+              className="flex min-w-0 items-center gap-[11px] rounded-[13px] border border-[#e8eaf2] bg-surface p-2.5"
               key={product.item.product_id}
             >
               <button
-                className="grid h-20 w-[76px] shrink-0 cursor-pointer place-items-center overflow-hidden rounded-[10px] border-0 bg-[#f1f3f8] p-0 text-[28px] text-[#5f687c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc]"
+                className="grid h-20 w-[76px] shrink-0 cursor-pointer place-items-center overflow-hidden rounded-[10px] border-0 bg-secondary p-0 text-[28px] text-[#5f687c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc]"
                 type="button"
                 onClick={() =>
                   window.open(
@@ -266,7 +266,7 @@ export default function CollectionDetail({
 
               <div className="flex shrink-0 flex-col items-center gap-1.5">
                 <button
-                  className="grid h-[30px] w-[30px] cursor-pointer place-items-center rounded-[9px] border border-[#e8eaf2] bg-white text-[17px] text-[#6974b5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc]"
+                  className="grid h-[30px] w-[30px] cursor-pointer place-items-center rounded-[9px] border border-[#e8eaf2] bg-surface text-[17px] text-[#6974b5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc]"
                   type="button"
                   onClick={() =>
                     window.open(

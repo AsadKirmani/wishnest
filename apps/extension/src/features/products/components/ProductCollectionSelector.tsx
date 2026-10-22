@@ -142,7 +142,7 @@ export default function ProductCollectionSelector({
           </label>
 
           <select
-            className="box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-white p-2.5 text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+            className="box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-surface p-2.5 text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
             id="target-collection"
             value={collectionId}
             onChange={(event) => setCollectionId(event.target.value)}

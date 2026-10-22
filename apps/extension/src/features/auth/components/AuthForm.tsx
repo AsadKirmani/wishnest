@@ -39,14 +39,14 @@ export default function AuthForm({
   }
 
   const inputClasses =
-    "mb-2 box-border w-full rounded-lg border border-[#d7ddeb] bg-white p-3 text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#243b80] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1";
+    "mb-2 box-border w-full rounded-lg border border-[#d7ddeb] bg-surface p-3 text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#243b80] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1";
 
   const primaryButton =
     "cursor-pointer rounded-lg border-0 bg-[#243b80] p-3 font-semibold text-white transition-colors hover:bg-[#1c2f69] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc] disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
     <main className="grid min-h-screen place-items-center p-3 sm:p-5">
-      <section className="box-border w-full max-w-[400px] rounded-2xl border border-[#e5e9f2] bg-white p-5 shadow-[0_12px_35px_rgb(20_35_70_/_7%)] sm:p-7">
+      <section className="box-border w-full max-w-[400px] rounded-2xl border border-[#e5e9f2] bg-surface p-5 shadow-[0_12px_35px_rgb(20_35_70_/_7%)] sm:p-7">
         <h1 className="mb-2 mt-0 text-[28px] font-bold text-[#172033]">
           WishNest
         </h1>

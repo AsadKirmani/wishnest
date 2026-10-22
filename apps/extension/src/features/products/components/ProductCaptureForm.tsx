@@ -104,7 +104,7 @@ export default function ProductCaptureForm({
   }
 
   const inputClasses =
-    "box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-white px-2.5 py-[9px] text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
+    "box-border w-full min-w-0 rounded-lg border border-[#d9deea] bg-surface px-2.5 py-[9px] text-[13px] text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
 
   const actionButton =
     "flex-1 cursor-pointer rounded-lg border-0 bg-[#5965d8] p-2.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#4955c5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5965d8] disabled:cursor-not-allowed disabled:opacity-60";
@@ -120,7 +120,7 @@ export default function ProductCaptureForm({
 
       {imageUrl && (
         <img
-          className="h-[130px] w-full rounded-[10px] bg-[#f1f3f8] object-contain"
+          className="h-[130px] w-full rounded-[10px] bg-secondary object-contain"
           src={imageUrl}
           alt="Product preview"
           onError={(event) => {
@@ -237,7 +237,7 @@ export default function ProductCaptureForm({
         </button>
 
         <button
-          className={`${actionButton} border border-[#d9deea] bg-white text-[#30394c] hover:bg-[#f1f3f8]`}
+          className={`${actionButton} border border-[#d9deea] bg-surface text-[#30394c] hover:bg-secondary`}
           type="button"
           onClick={onCancel}
           disabled={busy}

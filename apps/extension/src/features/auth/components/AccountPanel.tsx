@@ -24,7 +24,7 @@ export default function AccountPanel({
 
   return (
     <main className="grid min-h-screen place-items-center p-3 sm:p-5">
-      <section className="box-border w-full max-w-[400px] rounded-2xl border border-[#e5e9f2] bg-white p-5 shadow-[0_12px_35px_rgb(20_35_70_/_7%)] sm:p-7">
+      <section className="box-border w-full max-w-[400px] rounded-2xl border border-[#e5e9f2] bg-surface p-5 shadow-[0_12px_35px_rgb(20_35_70_/_7%)] sm:p-7">
         <h1 className="mb-2 mt-0 text-[28px] font-bold text-[#172033]">
           WishNest
         </h1>
@@ -80,7 +80,7 @@ export default function AccountPanel({
           </button>
 
           <button
-            className="w-full cursor-pointer rounded-lg border border-[#d7ddeb] bg-white p-3 font-semibold text-[#303a50] transition-colors hover:bg-[#f0f2f8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc] disabled:cursor-not-allowed disabled:opacity-60"
+            className="w-full cursor-pointer rounded-lg border border-[#d7ddeb] bg-surface p-3 font-semibold text-[#303a50] transition-colors hover:bg-[#f0f2f8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc] disabled:cursor-not-allowed disabled:opacity-60"
             type="button"
             onClick={() => void onLogout()}
             disabled={busy || captureBusy}

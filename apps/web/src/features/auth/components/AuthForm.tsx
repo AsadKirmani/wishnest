@@ -1,3 +1,4 @@
+
 import { useState, type FormEvent } from "react";
 
 type AuthMode = "login" | "signup";
@@ -39,19 +40,19 @@ export default function AuthForm({
   }
 
   const inputClasses =
-    "mb-2 box-border w-full rounded-lg border border-[#d7ddeb] bg-white p-3 font-inherit text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#243b80] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1";
+    "mb-2 box-border w-full rounded-lg border border-border bg-surface p-3 text-sm text-content placeholder:text-content-muted focus:border-primary focus:outline-2 focus:outline-accent focus:outline-offset-1";
 
   const buttonBase =
-    "cursor-pointer rounded-lg border-0 p-3 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5269dc] disabled:cursor-not-allowed disabled:opacity-60";
+    "cursor-pointer rounded-lg border-0 p-3 font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
-    <main className="grid min-h-screen place-items-center p-3 min-[381px]:p-5">
-      <section className="box-border w-full max-w-[400px] rounded-2xl border border-[#e5e9f2] bg-white p-5 shadow-[0_12px_35px_rgb(20_35_70_/_7%)] min-[381px]:p-7">
-        <h1 className="mb-2 mt-0 text-[28px] font-bold text-[#172033]">
+    <main className="grid min-h-screen place-items-center bg-background p-3 text-content min-[381px]:p-5">
+      <section className="box-border w-full max-w-[400px] rounded-2xl border border-border bg-surface p-5 shadow-lg min-[381px]:p-7">
+        <h1 className="mb-2 mt-0 text-[28px] font-bold">
           WishNest
         </h1>
 
-        <p className="text-[#657089]">
+        <p className="text-content-muted">
           Save it. Organize it. Share it.
         </p>
 
@@ -60,8 +61,8 @@ export default function AuthForm({
             type="button"
             className={`${buttonBase} flex-1 ${
               mode === "login"
-                ? "bg-[#243b80] text-white"
-                : "bg-[#f0f2f8] text-[#303a50] hover:bg-[#e5e9f2]"
+                ? "bg-primary text-on-primary"
+                : "bg-secondary text-content hover:bg-accent"
             }`}
             onClick={() => changeMode("login")}
             aria-pressed={mode === "login"}
@@ -73,8 +74,8 @@ export default function AuthForm({
             type="button"
             className={`${buttonBase} flex-1 ${
               mode === "signup"
-                ? "bg-[#243b80] text-white"
-                : "bg-[#f0f2f8] text-[#303a50] hover:bg-[#e5e9f2]"
+                ? "bg-primary text-on-primary"
+                : "bg-secondary text-content hover:bg-accent"
             }`}
             onClick={() => changeMode("signup")}
             aria-pressed={mode === "signup"}
@@ -85,7 +86,7 @@ export default function AuthForm({
 
         <form className="flex flex-col gap-2.5" onSubmit={handleSubmit}>
           <label
-            className="text-sm font-semibold text-[#303a50]"
+            className="text-sm font-semibold text-content"
             htmlFor="auth-email"
           >
             Email
@@ -103,7 +104,7 @@ export default function AuthForm({
           />
 
           <label
-            className="text-sm font-semibold text-[#303a50]"
+            className="text-sm font-semibold text-content"
             htmlFor="auth-password"
           >
             Password
@@ -125,7 +126,7 @@ export default function AuthForm({
 
           {error && (
             <p
-              className="m-0 [overflow-wrap:anywhere] text-sm text-[#b42318]"
+              className="m-0 [overflow-wrap:anywhere] text-sm text-primary"
               role="alert"
             >
               {error}
@@ -133,13 +134,13 @@ export default function AuthForm({
           )}
 
           {message && (
-            <p className="m-0 text-sm text-[#26996b]" role="status">
+            <p className="m-0 text-sm text-accent" role="status">
               {message}
             </p>
           )}
 
           <button
-            className={`${buttonBase} bg-[#243b80] text-white hover:bg-[#1c2f69]`}
+            className={`${buttonBase} bg-primary text-on-primary hover:bg-accent`}
             type="submit"
             disabled={busy}
           >

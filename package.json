@@ -25,6 +25,7 @@
   "packageManager": "pnpm@12.14.0",
   "type": "module",
   "devDependencies": {
+    "supabase": "^2.121.0",
     "typescript": "^7.0.2"
   }
 }

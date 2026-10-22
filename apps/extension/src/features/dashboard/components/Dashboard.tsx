@@ -72,7 +72,7 @@ export default function Dashboard({
         </div>
 
         <button
-          className={`${buttonBase} rounded-[9px] border border-[#e3e6ef] bg-white px-[9px] py-[7px] text-[11px] text-[#626a80]`}
+          className={`${buttonBase} rounded-[9px] border border-[#e3e6ef] bg-surface px-[9px] py-[7px] text-[11px] text-[#626a80]`}
           type="button"
           onClick={onLogout}
           aria-label={`Log out ${email}`}
@@ -109,7 +109,7 @@ export default function Dashboard({
         >
           <p className="m-0 min-w-0 [overflow-wrap:anywhere]">{error}</p>
           <button
-            className={`${buttonBase} shrink-0 rounded-[7px] border border-[#e9baba] bg-white px-2 py-1.5 text-[10px] text-[#a52b35]`}
+            className={`${buttonBase} shrink-0 rounded-[7px] border border-[#e9baba] bg-surface px-2 py-1.5 text-[10px] text-[#a52b35]`}
             type="button"
             onClick={() => void refresh()}
           >
@@ -153,7 +153,7 @@ export default function Dashboard({
             </div>
 
             {collections.length === 0 ? (
-              <div className="flex flex-col items-center rounded-[14px] border border-dashed border-[#dce0ed] bg-white px-4 py-6 text-center">
+              <div className="flex flex-col items-center rounded-[14px] border border-dashed border-[#dce0ed] bg-surface px-4 py-6 text-center">
                 <div className="mb-3 grid h-[42px] w-[42px] shrink-0 place-items-center rounded-[10px] bg-[#eef0ff] text-[25px] text-[#5267ce]">
                   ♡
                 </div>
@@ -175,7 +175,7 @@ export default function Dashboard({
               <div className="grid grid-cols-1 gap-[9px] sm:grid-cols-2">
                 {collections.map((collection) => (
                   <button
-                    className={`${buttonBase} flex min-w-0 items-center gap-[9px] rounded-[13px] border border-[#e8eaf2] bg-white px-2.5 py-3 text-left transition-[border-color,transform,box-shadow] duration-150 hover:-translate-y-px hover:border-[#cbd3ff] hover:shadow-[0_4px_12px_#26315c0a] motion-reduce:transform-none motion-reduce:transition-none`}
+                    className={`${buttonBase} flex min-w-0 items-center gap-[9px] rounded-[13px] border border-[#e8eaf2] bg-surface px-2.5 py-3 text-left transition-[border-color,transform,box-shadow] duration-150 hover:-translate-y-px hover:border-[#cbd3ff] hover:shadow-[0_4px_12px_#26315c0a] motion-reduce:transform-none motion-reduce:transition-none`}
                     type="button"
                     key={collection.id}
                     onClick={() => onOpenCollection(collection.id)}
@@ -218,7 +218,7 @@ export default function Dashboard({
             </div>
 
             {recentProducts.length === 0 ? (
-              <div className="flex flex-col items-center rounded-[14px] border border-dashed border-[#dce0ed] bg-white px-3.5 py-5 text-center">
+              <div className="flex flex-col items-center rounded-[14px] border border-dashed border-[#dce0ed] bg-surface px-3.5 py-5 text-center">
                 <div className="mb-3 grid h-[42px] w-[42px] place-items-center rounded-[10px] bg-[#eef0ff] text-[25px] text-[#5267ce]">
                   ＋
                 </div>
@@ -244,11 +244,11 @@ export default function Dashboard({
               <div className="flex flex-col gap-[9px]">
                 {recentProducts.map((product) => (
                   <article
-                    className="flex min-w-0 items-center gap-[11px] rounded-[13px] border border-[#e8eaf2] bg-white p-2.5"
+                    className="flex min-w-0 items-center gap-[11px] rounded-[13px] border border-[#e8eaf2] bg-surface p-2.5"
                     key={`${product.collectionId}-${product.id}`}
                   >
                     <button
-                      className={`${buttonBase} grid h-[72px] w-[68px] shrink-0 place-items-center overflow-hidden rounded-[10px] border-0 bg-[#f1f3f8] p-0`}
+                      className={`${buttonBase} grid h-[72px] w-[68px] shrink-0 place-items-center overflow-hidden rounded-[10px] border-0 bg-secondary p-0`}
                       type="button"
                       onClick={() =>
                         window.open(

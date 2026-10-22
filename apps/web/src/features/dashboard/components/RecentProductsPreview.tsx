@@ -1,4 +1,6 @@
+
 import type { RecentProduct } from "@wishnest/shared";
+import { Heart } from "lucide-react";
 
 type RecentProductsPreviewProps = {
   products: RecentProduct[];
@@ -33,16 +35,16 @@ export default function RecentProductsPreview({
   onOpenCollection,
 }: RecentProductsPreviewProps) {
   return (
-    <section className="mt-9" aria-busy={loading}>
+    <section className="mt-9 text-content" aria-busy={loading}>
       <header className="mb-4 flex items-end justify-between">
         <div>
-          <p className="mb-1 text-[11px] font-bold tracking-[0.12em] text-[#5965d8]">
+          <p className="mb-1 text-[11px] font-bold tracking-[0.12em] text-primary">
             YOUR LATEST FINDS
           </p>
-          <h2 className="m-0 text-[22px] font-bold tracking-[-0.035em] text-[#172033]">
+          <h2 className="m-0 text-[22px] font-bold tracking-[-0.035em]">
             Recently added
           </h2>
-          <p className="mt-1.5 text-sm text-[#596579]">
+          <p className="mt-1.5 text-sm text-content-muted">
             Quickly get back to something you saved.
           </p>
         </div>
@@ -50,12 +52,12 @@ export default function RecentProductsPreview({
 
       {error && (
         <div
-          className="flex items-center justify-between gap-3 rounded-[10px] border border-[#f0c7cb] bg-[#fff5f5] p-3 text-[13px] text-[#9e2734]"
+          className="flex items-center justify-between gap-3 rounded-[10px] border border-primary bg-secondary p-3 text-[13px] text-content"
           role="alert"
         >
           <p className="m-0 min-w-0 [overflow-wrap:anywhere]">{error}</p>
           <button
-            className="shrink-0 cursor-pointer rounded-lg border border-[#e7b8bd] bg-white px-2.5 py-[7px] text-[#9e2734] hover:bg-[#fff0f0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9e2734]"
+            className="shrink-0 cursor-pointer rounded-lg border border-border bg-surface px-2.5 py-[7px] text-content transition-colors hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             type="button"
             onClick={onRetry}
           >
@@ -66,23 +68,23 @@ export default function RecentProductsPreview({
 
       {loading ? (
         <p
-          className="rounded-[14px] border border-dashed border-[#cbd3e0] bg-white px-[18px] py-7 text-center text-[13px] leading-[1.6] text-[#596579]"
+          className="rounded-[14px] border border-dashed border-border bg-surface px-[18px] py-7 text-center text-[13px] leading-[1.6] text-content-muted"
           role="status"
         >
           Loading recent products...
         </p>
       ) : !error && products.length === 0 ? (
-        <div className="rounded-[14px] border border-dashed border-[#cbd3e0] bg-white px-[18px] py-7 text-center">
+        <div className="rounded-[14px] border border-dashed border-border bg-surface px-[18px] py-7 text-center">
           <span
-            className="inline-grid h-11 w-11 place-items-center rounded-[13px] bg-[#eef1ff] text-[27px] text-[#4055c7]"
+            className="inline-grid h-11 w-11 place-items-center rounded-[13px] bg-secondary text-[27px] text-primary"
             aria-hidden="true"
           >
-            ♡
+            <Heart className="h-6 w-6" aria-hidden="true" />
           </span>
-          <h3 className="mt-3 mb-0 text-[15px] font-semibold text-[#172033]">
+          <h3 className="mt-3 mb-0 text-[15px] font-semibold text-content">
             No products saved yet
           </h3>
-          <p className="mx-auto mt-[7px] mb-0 max-w-[420px] text-[13px] leading-[1.6] text-[#596579]">
+          <p className="mx-auto mt-[7px] mb-0 max-w-[420px] text-[13px] leading-[1.6] text-content-muted">
             Products you add to your collections will show up here for quick
             access.
           </p>
@@ -92,11 +94,11 @@ export default function RecentProductsPreview({
           <div className="grid grid-cols-2 gap-2.5 min-[641px]:grid-cols-[repeat(auto-fit,minmax(210px,1fr))] min-[641px]:gap-3.5">
             {products.map((product) => (
               <article
-                className="min-w-0 overflow-hidden rounded-[14px] border border-[#e0e5ee] bg-white shadow-[0_2px_8px_rgb(22_32_51_/_3%)]"
+                className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-surface shadow-sm"
                 key={`${product.collectionId}-${product.id}`}
               >
                 <a
-                  className="grid h-[120px] place-items-center overflow-hidden bg-[#f2f4f8] text-[32px] text-[#69758a] no-underline min-[641px]:h-[150px]"
+                  className="grid h-[120px] place-items-center overflow-hidden bg-secondary text-[32px] text-content-muted no-underline min-[641px]:h-[150px]"
                   href={product.canonical_url}
                   target="_blank"
                   rel="noreferrer"
@@ -104,19 +106,19 @@ export default function RecentProductsPreview({
                 >
                   {product.image_url ? (
                     <img
-                      className="h-full w-full object-contain [mix-blend-mode:multiply]"
+                      className="h-full w-full object-contain"
                       src={product.image_url}
                       alt=""
                       loading="lazy"
                     />
                   ) : (
-                    <span aria-hidden="true">♡</span>
+                    <Heart className="h-6 w-6" aria-hidden="true" />
                   )}
                 </a>
 
                 <div className="flex flex-col items-start gap-2 p-[11px] min-[641px]:p-3.5">
                   <a
-                    className="line-clamp-2 max-w-full [overflow-wrap:anywhere] text-sm font-semibold leading-[1.45] text-[#172033] no-underline hover:text-[#4055c7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4055c7] min-[641px]:text-sm"
+                    className="line-clamp-2 max-w-full [overflow-wrap:anywhere] text-sm font-semibold leading-[1.45] text-content no-underline hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent min-[641px]:text-sm"
                     href={product.canonical_url}
                     target="_blank"
                     rel="noreferrer"
@@ -125,14 +127,14 @@ export default function RecentProductsPreview({
                   </a>
 
                   <button
-                    className="cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold text-[#4055c7] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4055c7]"
+                    className="cursor-pointer border-0 bg-transparent p-0 text-left text-xs font-semibold text-primary hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                     type="button"
                     onClick={() => onOpenCollection(product.collectionId)}
                   >
                     {product.collectionName}
                   </button>
 
-                  <strong className="text-sm text-[#172033]">
+                  <strong className="text-sm text-content">
                     {formatPrice(
                       product.current_price,
                       product.currency,

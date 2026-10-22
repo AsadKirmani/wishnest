@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import type { Collection } from "../types";
 import { productRepository } from "../../products/services/productRepository";
@@ -59,9 +60,11 @@ export default function CollectionList({
 
   if (collections.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-[#d9deea] px-5 py-[42px] text-center">
-        <h3 className="mb-2 text-lg font-semibold">No collections yet</h3>
-        <p className="m-0 text-[#647084]">
+      <div className="rounded-2xl border border-dashed border-border px-5 py-[42px] text-center">
+        <h3 className="mb-2 text-lg font-semibold text-content">
+          No collections yet
+        </h3>
+        <p className="m-0 text-content-muted">
           Create your first collection to start organizing products.
         </p>
       </div>

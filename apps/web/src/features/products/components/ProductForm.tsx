@@ -1,3 +1,4 @@
+
 import { useState, type FormEvent } from "react";
 import type { Collection } from "../../collections/types";
 import type { SaveProductInput } from "../types";
@@ -104,9 +105,12 @@ export default function ProductForm({
   }
 
   const fieldClass =
-    "box-border w-full min-w-0 rounded-[9px] border border-[#d9deea] bg-white px-3 py-[11px] text-sm text-[#172033] placeholder:text-slate-400 focus:border-[#5965d8] focus:outline-2 focus:outline-[#c8ccff] disabled:cursor-not-allowed disabled:bg-slate-50 disabled:opacity-70";
+    "box-border w-full min-w-0 rounded-[9px] border border-border bg-surface px-3 py-[11px] text-sm text-content placeholder:text-content-muted focus:border-primary focus:outline-2 focus:outline-accent disabled:cursor-not-allowed disabled:opacity-70";
 
-  const labelClass = "text-sm font-semibold text-[#30394c]";
+  const labelClass = "text-sm font-semibold text-content";
+
+  const secondaryButtonClass =
+    "rounded-[9px] border border-border bg-secondary px-4 py-[11px] font-semibold text-content transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
     <form className="grid gap-[18px]" onSubmit={handleSubmit}>
@@ -167,7 +171,8 @@ export default function ProductForm({
 
       <div className="grid gap-2">
         <label className={labelClass} htmlFor="product-image">
-          Image URL <span className="font-normal text-[#647084]">(optional)</span>
+          Image URL{" "}
+          <span className="font-normal text-content-muted">(optional)</span>
         </label>
 
         <input
@@ -184,7 +189,8 @@ export default function ProductForm({
       <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-3 max-[480px]:grid-cols-1">
         <div className="grid content-start gap-2">
           <label className={labelClass} htmlFor="product-price">
-            Price <span className="font-normal text-[#647084]">(optional)</span>
+            Price{" "}
+            <span className="font-normal text-content-muted">(optional)</span>
           </label>
 
           <input
@@ -222,7 +228,8 @@ export default function ProductForm({
 
       <div className="grid gap-2">
         <label className={labelClass} htmlFor="product-note">
-          Note <span className="font-normal text-[#647084]">(optional)</span>
+          Note{" "}
+          <span className="font-normal text-content-muted">(optional)</span>
         </label>
 
         <textarea
@@ -239,7 +246,7 @@ export default function ProductForm({
 
       {formError && (
         <p
-          className="m-0 rounded-lg border border-red-200 bg-red-50 px-3 py-2.5 text-sm text-[#b42332]"
+          className="m-0 rounded-lg border border-primary bg-secondary px-3 py-2.5 text-sm text-content"
           role="alert"
         >
           {formError}
@@ -249,7 +256,7 @@ export default function ProductForm({
       <div className="flex flex-wrap gap-2.5">
         <button
           type="submit"
-          className="rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white transition-colors hover:bg-[#4854c5] disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-[9px] bg-primary px-4 py-[11px] font-semibold text-on-primary transition-colors hover:bg-accent disabled:cursor-not-allowed disabled:opacity-60"
           disabled={busy || collections.length === 0}
         >
           {busy ? "Saving..." : "Save product"}
@@ -257,7 +264,7 @@ export default function ProductForm({
 
         <button
           type="button"
-          className="rounded-[9px] bg-[#eef0f6] px-4 py-[11px] font-semibold text-[#30394c] transition-colors hover:bg-slate-200 disabled:cursor-not-allowed disabled:opacity-60"
+          className={secondaryButtonClass}
           onClick={onCancel}
           disabled={busy}
         >

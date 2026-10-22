@@ -1,3 +1,5 @@
+
+import { Ghost } from "lucide-react";
 import type { SavedCollectionProduct } from "../types";
 import ProductCard from "./ProductCard";
 
@@ -17,10 +19,10 @@ export default function ProductList({
   if (loading) {
     return (
       <div
-        className="flex items-center justify-center gap-3 py-10 text-sm text-[#647084]"
+        className="flex items-center justify-center gap-3 py-10 text-sm text-content-muted"
         role="status"
       >
-        <span className="size-5 animate-spin rounded-full border-2 border-slate-200 border-t-[#5965d8]" />
+        <span className="size-5 animate-spin rounded-full border-2 border-border border-t-primary" />
         Loading products...
       </div>
     );
@@ -28,29 +30,16 @@ export default function ProductList({
 
   if (products.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-[#d9deea] px-5 py-10 text-center">
-        <div className="mx-auto mb-4 grid size-12 place-items-center rounded-full bg-[#f0f1ff] text-[#5965d8]">
-          <svg
-            viewBox="0 0 24 24"
-            className="size-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            aria-hidden="true"
-          >
-            <path
-              d="M6 3h12l2 5-8 13L4 8l2-5Z"
-              strokeLinejoin="round"
-            />
-            <path d="M4 8h16M9 3l3 18 3-18M6 3l3 5m9-5-3 5" />
-          </svg>
+      <div className="rounded-2xl border border-dashed border-border bg-surface px-5 py-10 text-center">
+        <div className="mx-auto mb-4 grid size-12 place-items-center rounded-full bg-secondary text-primary">
+          <Ghost className="size-6" aria-hidden="true" />
         </div>
 
-        <h3 className="mb-2 text-lg font-semibold text-[#172033]">
+        <h3 className="mb-2 text-lg font-semibold text-content">
           No products saved yet
         </h3>
 
-        <p className="m-0 text-sm leading-relaxed text-[#647084]">
+        <p className="m-0 text-sm leading-relaxed text-content-muted">
           Add a product URL to start building your wishlist.
         </p>
       </div>
@@ -58,7 +47,7 @@ export default function ProductList({
   }
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,280px),1fr))] gap-[18px]">
+    <div className="grid grid-cols-2 gap-2.5 min-[641px]:grid-cols-[repeat(auto-fit,minmax(210px,1fr))] min-[641px]:gap-3.5">
       {products.map((item) => (
         <ProductCard
           key={`${item.item.collection_id}-${item.product.id}`}

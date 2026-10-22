@@ -1,18 +1,42 @@
+
 import { useAuth } from "./features/auth/hooks/useAuth";
 import AuthForm from "./features/auth/components/AuthForm";
 import DashboardLayout from "./features/dashboard/components/DashboardLayout";
+import SharedCollectionPage from "./features/collections/components/SharedCollectionPage";
 
 export default function App() {
   const auth = useAuth();
+  const shareMatch = window.location.pathname.match(/^\/share\/([^/]+)\/?$/);
 
   if (auth.loading) {
     return (
-      <main className="grid min-h-screen place-items-center bg-[#f5f7fb] text-sm text-[#657089]">
+      <main className="grid min-h-screen place-items-center bg-background text-sm text-content-muted">
         <div className="flex items-center gap-3" role="status">
-          <span className="h-5 w-5 animate-spin rounded-full border-2 border-[#d9deea] border-t-[#243b80] motion-reduce:animate-none" />
+          <span className="size-5 animate-spin rounded-full border-2 border-border border-t-primary" />
           Loading WishNest...
         </div>
       </main>
+    );
+  }
+
+  if (shareMatch) {
+    if (auth.session) {
+      return (
+        <SharedCollectionPage
+          token={decodeURIComponent(shareMatch[1])}
+        />
+      );
+    }
+
+    return (
+      <AuthForm
+        busy={auth.busy}
+        error={auth.error}
+        message={auth.message}
+        onSignIn={auth.signIn}
+        onSignUp={auth.signUp}
+        onClearFeedback={auth.clearFeedback}
+      />
     );
   }
 

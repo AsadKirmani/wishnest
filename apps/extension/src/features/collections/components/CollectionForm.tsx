@@ -64,14 +64,14 @@ export default function CollectionForm({
   }
 
   const inputClasses =
-    "box-border w-full rounded-lg border border-[#cbd5e1] bg-white px-3 py-2.5 text-[13px] text-[#172033] placeholder:text-slate-400 focus:border-[#4f46e5] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
+    "box-border w-full rounded-lg border border-[#cbd5e1] bg-surface px-3 py-2.5 text-[13px] text-[#172033] placeholder:text-slate-400 focus:border-[#4f46e5] focus:outline-2 focus:outline-[#c7d2fe] focus:outline-offset-1 disabled:cursor-not-allowed disabled:opacity-60";
 
   const actionButton =
     "inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-lg border border-[#4f46e5] bg-[#4f46e5] px-3.5 text-[13px] font-semibold text-white transition-colors hover:bg-[#4338ca] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5] disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
     <form
-      className="flex flex-col gap-4 bg-white p-5 text-[#172033]"
+      className="flex flex-col gap-4 bg-surface p-5 text-[#172033]"
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col gap-[7px]">
@@ -163,7 +163,7 @@ export default function CollectionForm({
 
         {onCancel && (
           <button
-            className="inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-lg border border-[#cbd5e1] bg-white px-3.5 text-[13px] font-semibold text-[#334155] transition-colors hover:bg-[#f1f5f9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5] disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex min-h-[38px] cursor-pointer items-center justify-center rounded-lg border border-[#cbd5e1] bg-surface px-3.5 text-[13px] font-semibold text-[#334155] transition-colors hover:bg-[#f1f5f9] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4f46e5] disabled:cursor-not-allowed disabled:opacity-60"
             type="button"
             onClick={onCancel}
             disabled={busy}

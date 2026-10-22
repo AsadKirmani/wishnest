@@ -1,3 +1,4 @@
+
 import type { SavedCollectionProduct } from "../types";
 
 interface ProductCardProps {
@@ -13,75 +14,73 @@ export default function ProductCard({
 }: ProductCardProps) {
   const { product, item: collectionItem } = item;
 
-  return (
-    <article className="min-w-0 overflow-hidden rounded-2xl border border-[#e3e7ef] bg-white transition-shadow hover:shadow-md">
-      {product.image_url ? (
-        <img
-          className="box-border block h-[210px] w-full bg-[#f1f3f8] object-contain"
-          src={product.image_url}
-          alt={product.title}
-          loading="lazy"
-          referrerPolicy="no-referrer"
-          onError={(event) => {
-            event.currentTarget.hidden = true;
-          }}
-        />
-      ) : (
-        <div
-          className="grid h-[210px] w-full place-items-center bg-[#f1f3f8] text-[13px] text-[#626b7f]"
-          aria-hidden="true"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <svg
-              viewBox="0 0 24 24"
-              className="size-8 text-slate-400"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              aria-hidden="true"
-            >
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="m21 15-5-5L5 21" />
-            </svg>
-            No image
-          </div>
-        </div>
-      )}
+  function formatPrice(price: number, currency: string | null): string {
+    try {
+      return new Intl.NumberFormat("en-IN", {
+        style: "currency",
+        currency: currency || "INR",
+        maximumFractionDigits: 2,
+      }).format(price);
+    } catch {
+      return `${currency ?? ""} ${price}`.trim();
+    }
+  }
 
-      <div className="grid content-start gap-3 p-[18px]">
-        <h3 className="m-0 line-clamp-2 min-h-[3rem] break-words text-base font-semibold leading-6">
-          <a
-            className="text-[#26358a] no-underline hover:underline"
-            href={product.canonical_url}
-            target="_blank"
-            rel="noreferrer"
-            title={product.title}
-          >
-            {product.title}
-          </a>
-        </h3>
+  return (
+    <article className="min-w-0 overflow-hidden rounded-[14px] border border-border bg-surface shadow-sm">
+      <a
+        className="grid h-[120px] w-full place-items-center overflow-hidden bg-secondary text-[32px] text-content-muted no-underline min-[641px]:h-[280px]"
+        href={product.canonical_url}
+        target="_blank"
+        rel="noreferrer"
+        aria-label={`Open ${product.title}`}
+      >
+        {product.image_url ? (
+          <img
+            className="h-full w-full object-contain"
+            src={product.image_url}
+            alt=""
+            loading="lazy"
+            referrerPolicy="no-referrer"
+            onError={(event) => {
+              event.currentTarget.hidden = true;
+            }}
+          />
+        ) : (
+          <span aria-hidden="true">♡</span>
+        )}
+      </a>
+
+      <div className="flex min-w-0 flex-col items-start gap-2 p-[11px] min-[641px]:p-3.5">
+        <a
+          className="line-clamp-2 max-w-full [overflow-wrap:anywhere] text-sm font-semibold leading-[1.45] text-content no-underline transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          href={product.canonical_url}
+          target="_blank"
+          rel="noreferrer"
+          title={product.title}
+        >
+          {product.title}
+        </a>
 
         {product.current_price !== null && (
-          <p className="m-0 text-lg font-bold text-[#172033]">
-            {product.currency ?? ""}{" "}
-            {product.current_price.toLocaleString()}
-          </p>
+          <strong className="text-sm text-content">
+            {formatPrice(product.current_price, product.currency)}
+          </strong>
         )}
 
         {collectionItem.note && (
-          <p className="m-0 break-words text-[13px] leading-[1.6] text-[#647084]">
+          <p className="m-0 line-clamp-2 w-full break-words text-xs leading-relaxed text-content-muted">
             {collectionItem.note}
           </p>
         )}
 
-        <p className="m-0 break-words text-[13px] leading-[1.6] text-[#647084]">
+        <p className="m-0 text-xs text-content-muted">
           Saved {new Date(collectionItem.added_at).toLocaleDateString()}
         </p>
 
         <button
           type="button"
-          className="mt-1 w-full rounded-[9px] bg-[#fff0f0] px-3 py-[10px] text-sm font-semibold text-[#b42332] transition-colors hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mt-1 w-full cursor-pointer rounded-lg border border-border bg-secondary px-3 py-2 text-xs font-semibold text-content transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-60"
           disabled={busy}
           onClick={() => onRemove(product.id)}
         >

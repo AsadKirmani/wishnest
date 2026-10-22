@@ -1,3 +1,4 @@
+
 import { useEffect, useState, type FormEvent } from "react";
 import type {
   Collection,
@@ -84,10 +85,10 @@ export default function CollectionForm({
   }
 
   const fieldClass =
-    "box-border w-full rounded-[9px] border border-[#d9deea] bg-white px-3 py-[11px] font-inherit text-[#172033] focus:border-[#5965d8] focus:outline-2 focus:outline-[#c8ccff] disabled:cursor-not-allowed disabled:opacity-60";
+    "box-border w-full rounded-[9px] border border-border bg-surface px-3 py-[11px] font-inherit text-content focus:border-primary focus:outline-2 focus:outline-accent disabled:cursor-not-allowed disabled:opacity-60";
 
   return (
-    <form className="grid gap-[18px]" onSubmit={handleSubmit}>
+    <form className="grid gap-[18px] text-content" onSubmit={handleSubmit}>
       <div className="grid gap-2">
         <label htmlFor="collection-name" className="text-sm font-semibold">
           Collection name
@@ -111,7 +112,7 @@ export default function CollectionForm({
           className="text-sm font-semibold"
         >
           Description{" "}
-          <span className="text-[13px] font-normal text-[#626b7f]">
+          <span className="text-[13px] font-normal text-content-muted">
             (optional)
           </span>
         </label>
@@ -149,13 +150,13 @@ export default function CollectionForm({
           <option value="public">Public — visibility setting only</option>
         </select>
 
-        <p className="m-0 text-[13px] font-normal text-[#626b7f]">
+        <p className="m-0 text-[13px] font-normal text-content-muted">
           Public sharing links will be implemented separately.
         </p>
       </div>
 
       {formError && (
-        <p className="m-0 text-sm text-[#b42332]" role="alert">
+        <p className="m-0 text-sm text-red-600" role="alert">
           {formError}
         </p>
       )}
@@ -163,7 +164,7 @@ export default function CollectionForm({
       <div className="flex flex-wrap gap-2.5">
         <button
           type="submit"
-          className="rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-60"
+          className="rounded-[9px] bg-primary px-4 py-[11px] font-semibold text-on-primary disabled:cursor-not-allowed disabled:opacity-60"
           disabled={busy}
         >
           {busy
@@ -176,7 +177,7 @@ export default function CollectionForm({
         {onCancel && (
           <button
             type="button"
-            className="rounded-[9px] bg-[#eef0f6] px-4 py-[11px] font-semibold text-[#30394c] disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-[9px] bg-secondary px-4 py-[11px] font-semibold text-content disabled:cursor-not-allowed disabled:opacity-60"
             onClick={onCancel}
             disabled={busy}
           >

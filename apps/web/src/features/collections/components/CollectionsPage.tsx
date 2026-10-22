@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useCollections } from "../hooks/useCollections";
 import type {
@@ -12,6 +13,7 @@ import { useDashboardOverview } from "../../dashboard/hooks/useDashboardOverview
 import RecentProductsPreview from "../../dashboard/components/RecentProductsPreview";
 import { useModal } from "../../../shared/components/ModalContext";
 import DeleteDialog from "../../../shared/components/DeleteDialog";
+import { Plus } from "lucide-react";
 
 export default function CollectionsPage() {
   const { openModal, closeModal } = useModal();
@@ -36,7 +38,7 @@ export default function CollectionsPage() {
 
     openModal(
       <div className="pr-5">
-        <h2 className="mb-5 text-xl font-semibold text-[#172033]">
+        <h2 className="mb-5 text-xl font-semibold text-content">
           {collection ? "Edit collection" : "Create a collection"}
         </h2>
 
@@ -115,41 +117,37 @@ export default function CollectionsPage() {
   }
 
   return (
-    <main className="mx-auto w-[min(100%-2rem,1100px)] pb-16 pt-10 text-[#172033] max-[600px]:pt-6">
+    <main className="mx-auto w-[min(100%-2rem,1100px)] pb-16 pt-10 text-content max-[600px]:pt-6">
       <header className="mb-8 flex items-start justify-between gap-6 max-[600px]:flex-col">
         <div className="min-w-0">
-          <p className="mb-1 text-xs font-bold tracking-[0.12em] text-[#5965d8]">
-            YOUR WISHNEST
-          </p>
-
-          <h1 className="my-1 text-[clamp(28px,4vw,38px)] font-bold tracking-[-0.04em]">
+          <h1 className="mb-1 text-[clamp(28px,4vw,38px)] font-bold tracking-[-0.04em]">
             My collections
           </h1>
 
-          <p className="m-0 leading-[1.6] text-[#647084]">
+          <p className="m-0 leading-[1.6] text-content-muted">
             Organize the products you want to save for later.
           </p>
         </div>
 
         <button
           type="button"
-          className="shrink-0 rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white max-[600px]:w-full"
+          className="shrink-0 flex items-center justify-center gap-2 rounded-[9px] bg-primary px-4 py-[11px] font-semibold text-on-primary max-[600px]:w-full"
           onClick={() => openCollectionForm()}
         >
-          + New collection
+          <Plus className="size-6" aria-hidden="true" /> New collection
         </button>
       </header>
 
       {error && (
         <div
-          className="mb-5 flex items-center justify-between gap-3 rounded-[10px] border border-[#ffd4d4] bg-[#fff6f6] px-4 py-3 text-[#b42332] max-[480px]:items-start"
+          className="mb-5 flex items-center justify-between gap-3 rounded-[10px] border border-red-300 bg-red-50 px-4 py-3 text-red-700 max-[480px]:items-start"
           role="alert"
         >
           <p className="m-0 min-w-0 break-words">{error}</p>
 
           <button
             type="button"
-            className="shrink-0 rounded-[9px] bg-[#5965d8] px-3 py-2 font-semibold text-white"
+            className="shrink-0 rounded-[9px] bg-primary px-3 py-2 font-semibold text-on-primary"
             onClick={clearError}
           >
             Dismiss
@@ -159,10 +157,12 @@ export default function CollectionsPage() {
 
       <section aria-busy={loading}>
         {loading ? (
-          <p className="py-6 text-sm text-[#647084]">Loading collections...</p>
+          <p className="py-6 text-sm text-content-muted">
+            Loading collections...
+          </p>
         ) : (
           <>
-            <div className="mb-4 text-sm text-[#647084]">
+            <div className="mb-4 text-sm text-content-muted">
               {collections.length}{" "}
               {collections.length === 1 ? "collection" : "collections"}
             </div>
