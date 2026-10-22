@@ -50,12 +50,13 @@ export default function ProductCard({
       )}
 
       <div className="grid content-start gap-3 p-[18px]">
-        <h3 className="m-0 break-words text-base font-semibold leading-[1.5]">
+        <h3 className="m-0 line-clamp-2 min-h-[3rem] break-words text-base font-semibold leading-6">
           <a
             className="text-[#26358a] no-underline hover:underline"
             href={product.canonical_url}
             target="_blank"
             rel="noreferrer"
+            title={product.title}
           >
             {product.title}
           </a>

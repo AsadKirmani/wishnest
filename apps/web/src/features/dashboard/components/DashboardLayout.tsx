@@ -1,4 +1,6 @@
 import CollectionsPage from "../../collections/components/CollectionsPage";
+import { ModalProvider } from "../../../shared/components/ModalContext";
+import { useEffect, useState } from "react";
 
 interface DashboardLayoutProps {
   email: string;
@@ -15,6 +17,16 @@ export default function DashboardLayout({
   message,
   onLogout,
 }: DashboardLayoutProps) {
+  // handle any necessary logic here before rendering
+  const [hideErrorAndMessage, setHideErrorAndMessage] = useState(false);
+  useEffect(() => {
+    if (error || message) {
+      const timer = setTimeout(() => {
+        setHideErrorAndMessage(true);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [error, message]);
   return (
     <div className="min-h-screen bg-[#f7f8fc]">
       <header className="box-border flex min-h-[72px] items-center justify-between gap-5 border-b border-[#e3e7ef] bg-white px-4 py-3 min-[601px]:px-6 min-[1100px]:px-[max(24px,calc((100vw-1100px)/2))]">
@@ -48,9 +60,9 @@ export default function DashboardLayout({
         </div>
       </header>
 
-      {(error || message) && (
+      {(error || message) && !hideErrorAndMessage && (
         <div
-          className="mx-auto mt-5 box-border w-[calc(100%-32px)] max-w-[1100px] rounded-[10px] border border-[#e3e7ef] bg-white px-4 py-3"
+          className="bg-white w-64 z-50 px-4 py-3 absolute bottom-0 left-0 mb-4 ml-4"
           aria-live="polite"
         >
           {error && (
@@ -69,7 +81,9 @@ export default function DashboardLayout({
         </div>
       )}
 
-      <CollectionsPage />
+      <ModalProvider>
+        <CollectionsPage />
+      </ModalProvider>
     </div>
   );
 }

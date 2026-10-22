@@ -7,12 +7,14 @@ import type {
 } from "../types";
 import CollectionForm from "./CollectionForm";
 import CollectionList from "./CollectionList";
-import DeleteCollectionDialog from "./DeleteCollectionDialog";
 import CollectionDetailPage from "./CollectionDetailPage";
 import { useDashboardOverview } from "../../dashboard/hooks/useDashboardOverview";
 import RecentProductsPreview from "../../dashboard/components/RecentProductsPreview";
+import { useModal } from "../../../shared/components/ModalContext";
+import DeleteDialog from "../../../shared/components/DeleteDialog";
 
 export default function CollectionsPage() {
+  const { openModal, closeModal } = useModal();
   const dashboardOverview = useDashboardOverview();
 
   const {
@@ -26,30 +28,68 @@ export default function CollectionsPage() {
     clearError,
   } = useCollections();
 
-  const [editing, setEditing] = useState<Collection | null>(null);
-  const [creating, setCreating] = useState(false);
-  const [deleting, setDeleting] = useState<Collection | null>(null);
   const [selectedCollection, setSelectedCollection] =
     useState<Collection | null>(null);
 
-  async function handleSave(
-    input: CreateCollectionInput | UpdateCollectionInput,
-  ) {
-    if (editing) {
-      await updateCollection(editing.id, input);
-      setEditing(null);
-      return;
-    }
+  function openCollectionForm(collection: Collection | null = null) {
+    clearError();
 
-    await createCollection(input as CreateCollectionInput);
-    setCreating(false);
+    openModal(
+      <div className="pr-5">
+        <h2 className="mb-5 text-xl font-semibold text-[#172033]">
+          {collection ? "Edit collection" : "Create a collection"}
+        </h2>
+
+        <CollectionForm
+          key={collection?.id ?? "new"}
+          collection={collection}
+          existingCollections={collections}
+          busy={busy}
+          onSubmit={async (
+            input: CreateCollectionInput | UpdateCollectionInput,
+          ) => {
+            if (collection) {
+              await updateCollection(collection.id, input);
+            } else {
+              await createCollection(input as CreateCollectionInput);
+            }
+
+            closeModal();
+          }}
+          onCancel={() => {
+            clearError();
+            closeModal();
+          }}
+        />
+      </div>,
+      {
+        title: collection ? "Edit collection" : "Create collection",
+        maxWidth: "max-w-[640px]",
+      },
+    );
   }
 
-  async function handleDelete() {
-    if (!deleting) return;
+  function openDeleteDialog(collection: Collection) {
+    clearError();
 
-    await deleteCollection(deleting.id);
-    setDeleting(null);
+    openModal(
+      <DeleteDialog
+        title="Delete collection?"
+        description="Are you sure you want to delete"
+        itemName={`${collection.name}? This action cannot be undone.`}
+        confirmText="Delete collection"
+        busy={busy}
+        onConfirm={async () => {
+          await deleteCollection(collection.id);
+          closeModal();
+        }}
+        onCancel={closeModal}
+      />,
+      {
+        title: "Delete collection",
+        maxWidth: "max-w-[440px]",
+      },
+    );
   }
 
   if (selectedCollection) {
@@ -64,6 +104,12 @@ export default function CollectionsPage() {
           setSelectedCollection(null);
           void dashboardOverview.refresh();
         }}
+        onEdit={(collection) => {
+          setSelectedCollection(null);
+          openCollectionForm(collection);
+        }}
+        onDelete={openDeleteDialog}
+        busy={busy}
       />
     );
   }
@@ -85,18 +131,13 @@ export default function CollectionsPage() {
           </p>
         </div>
 
-        {!creating && !editing && (
-          <button
-            type="button"
-            className="shrink-0 rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white max-[600px]:w-full"
-            onClick={() => {
-              clearError();
-              setCreating(true);
-            }}
-          >
-            + New collection
-          </button>
-        )}
+        <button
+          type="button"
+          className="shrink-0 rounded-[9px] bg-[#5965d8] px-4 py-[11px] font-semibold text-white max-[600px]:w-full"
+          onClick={() => openCollectionForm()}
+        >
+          + New collection
+        </button>
       </header>
 
       {error && (
@@ -116,32 +157,9 @@ export default function CollectionsPage() {
         </div>
       )}
 
-      {(creating || editing) && (
-        <section className="mb-7 max-w-[640px] rounded-2xl border border-[#e3e7ef] bg-white p-[22px] max-[380px]:p-4">
-          <h2 className="mb-5 text-xl font-semibold">
-            {editing ? "Edit collection" : "Create a collection"}
-          </h2>
-
-          <CollectionForm
-            key={editing?.id ?? "new"}
-            collection={editing}
-            existingCollections={collections}
-            busy={busy}
-            onSubmit={handleSave}
-            onCancel={() => {
-              setCreating(false);
-              setEditing(null);
-              clearError();
-            }}
-          />
-        </section>
-      )}
-
       <section aria-busy={loading}>
         {loading ? (
-          <p className="py-6 text-sm text-[#647084]">
-            Loading collections...
-          </p>
+          <p className="py-6 text-sm text-[#647084]">Loading collections...</p>
         ) : (
           <>
             <div className="mb-4 text-sm text-[#647084]">
@@ -156,15 +174,8 @@ export default function CollectionsPage() {
                 clearError();
                 setSelectedCollection(collection);
               }}
-              onEdit={(collection) => {
-                clearError();
-                setCreating(false);
-                setEditing(collection);
-              }}
-              onDelete={(collection) => {
-                clearError();
-                setDeleting(collection);
-              }}
+              onEdit={openCollectionForm}
+              onDelete={openDeleteDialog}
             />
           </>
         )}
@@ -183,15 +194,6 @@ export default function CollectionsPage() {
           if (collection) setSelectedCollection(collection);
         }}
       />
-
-      {deleting && (
-        <DeleteCollectionDialog
-          collectionName={deleting.name}
-          busy={busy}
-          onConfirm={handleDelete}
-          onCancel={() => setDeleting(null)}
-        />
-      )}
     </main>
   );
 }

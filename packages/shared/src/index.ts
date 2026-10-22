@@ -318,7 +318,7 @@ export function createDashboardRepository(client: SupabaseClient) {
         const collectionName = collectionsById.get(item.collection_id);
         if (!product || !collectionName) return [];
         return [{ ...product, collectionId: item.collection_id, collectionName, addedAt: item.added_at }];
-      }).slice(0, 5);
+      }).slice(0, 10);
 
       return { collections: dashboardCollections, recentProducts };
     }
